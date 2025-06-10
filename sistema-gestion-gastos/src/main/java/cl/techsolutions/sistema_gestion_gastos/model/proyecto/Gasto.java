@@ -5,6 +5,7 @@ import java.util.Date;
 import cl.techsolutions.sistema_gestion_gastos.model.usuarios.Empleado;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 /**
@@ -48,6 +49,10 @@ public class Gasto {
     @NotNull(message = "La fecha es obligatoria")
     @Column(nullable = false)
     private Date fecha;
+
+    @Size(min = 80, max = 500, message = "La justificación debe tener entre 80 y 500 caracteres")
+    @Column(length = 500, nullable = false)
+    private String justificacion;
 
     @ManyToOne
     @JoinColumn(name = "proyecto_id", nullable = false)
