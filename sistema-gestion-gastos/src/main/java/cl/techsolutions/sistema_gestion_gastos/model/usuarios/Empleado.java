@@ -1,6 +1,9 @@
 package cl.techsolutions.sistema_gestion_gastos.model.usuarios;
 
+import java.util.List;
+
 import cl.techsolutions.sistema_gestion_gastos.model.departamento.Departamento;
+import cl.techsolutions.sistema_gestion_gastos.model.proyecto.Gasto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,4 +33,8 @@ public class Empleado extends Usuario {
     @ManyToOne
     @JoinColumn(name = "departamento_id", nullable = false)
     private Departamento departamento;
+
+    @OneToMany
+    @JoinColumn(name = "empleado_id")
+    private List<Gasto> gastos;
 }
