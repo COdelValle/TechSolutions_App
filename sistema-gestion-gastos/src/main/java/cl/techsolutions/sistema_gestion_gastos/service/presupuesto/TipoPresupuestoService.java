@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import cl.techsolutions.sistema_gestion_gastos.model.presupuesto.TipoPresupuesto;
@@ -29,7 +30,11 @@ public class TipoPresupuestoService {
         if (tipoPresupuestoRepository.existsById(tipoPresupuesto.getId())) {
             throw new RuntimeException("Tipo de presupuesto ya existe con ID: " + tipoPresupuesto.getId());
         }
-        return tipoPresupuestoRepository.save(tipoPresupuesto);
+        try {
+            return tipoPresupuestoRepository.save(tipoPresupuesto);
+        } catch (DataIntegrityViolationException ex) {
+            throw new RuntimeException("Error al guardar el tipo de presupuesto: " + ex.getMostSpecificCause().getMessage());
+        }
     }
 
     // Método para eliminar un tipo de presupuesto por su ID:

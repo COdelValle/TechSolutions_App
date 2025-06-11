@@ -3,6 +3,7 @@ package cl.techsolutions.sistema_gestion_gastos.service.proyecto;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import cl.techsolutions.sistema_gestion_gastos.model.proyecto.Gasto;
@@ -29,7 +30,11 @@ public class GastoService {
         if (gastoRepository.existsById(gasto.getId())) {
             throw new RuntimeException("Gasto ya existe con ID: " + gasto.getId());
         }
-        return gastoRepository.save(gasto);
+        try {
+            return gastoRepository.save(gasto);
+        } catch (DataIntegrityViolationException ex) {
+            throw new RuntimeException("Error al guardar el gasto: " + ex.getMostSpecificCause().getMessage());
+        }
     }
 
     // Método para eliminar un gasto por su ID:
@@ -47,6 +52,10 @@ public class GastoService {
         if (!gastoRepository.existsById(id)) {
             throw new RuntimeException("Gasto no encontrado con ID: " + id);
         }
-        return gastoRepository.save(gasto);
+        try {
+            return gastoRepository.save(gasto);
+        } catch (DataIntegrityViolationException ex) {
+            throw new RuntimeException("Error al actualizar el gasto: " + ex.getMostSpecificCause().getMessage());
+        }
     }
 }

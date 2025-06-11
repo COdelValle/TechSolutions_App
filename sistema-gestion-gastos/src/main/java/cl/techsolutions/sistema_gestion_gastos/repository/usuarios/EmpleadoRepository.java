@@ -29,4 +29,6 @@ import cl.techsolutions.sistema_gestion_gastos.model.usuarios.Empleado;
 public interface EmpleadoRepository extends JpaRepository<Empleado, Integer> {
     // Método para buscar un empleado por su correo electrónico
     Optional<Empleado> findByEmail(String email);
+    // Método para verificar si un empleado existe por su correo electrónico
+    boolean existsByEmail(String email);
 }

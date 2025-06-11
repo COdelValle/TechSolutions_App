@@ -1,6 +1,7 @@
 package cl.techsolutions.sistema_gestion_gastos.model.usuarios;
 
 import java.util.List;
+import java.util.Optional;
 
 import cl.techsolutions.sistema_gestion_gastos.model.Notificacion;
 import jakarta.persistence.*;
@@ -47,6 +48,10 @@ public abstract class Usuario {
     @Column(nullable = false)
     protected String nombre;
 
+    @NotBlank(message = "El apellido no puede estar vacío")
+    @Column(nullable = false)
+    protected String apellido;
+
     @NotBlank(message = "El email no puede estar vacío")
     @Email(message = "El email debe tener un formato válido")
     @Column(nullable = false, unique = true)
@@ -58,5 +63,9 @@ public abstract class Usuario {
     protected String contraseña;
 
     @OneToMany(mappedBy = "destinatario")
-    private List<Notificacion> notificaciones;
+    protected List<Notificacion> notificaciones;
+
+    protected static Optional<Usuario>map(Object o){
+        throw new UnsupportedOperationException("Unimplement method 'map'");
+    }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import cl.techsolutions.sistema_gestion_gastos.model.proyecto.Proyecto;
@@ -34,19 +35,31 @@ public class ProyectoService {
         if (proyectoRepository.existsById(proyecto.getId())) {
             throw new RuntimeException("Proyecto ya existe con ID: " + proyecto.getId());
         }
-        return proyectoRepository.save(proyecto);
+        try {
+            return proyectoRepository.save(proyecto);
+        } catch (DataIntegrityViolationException ex) {
+            throw new RuntimeException("Error al guardar el proyecto: " + ex.getMostSpecificCause().getMessage());
+        }
     }
 
     // Método para eliminar un proyecto por su ID:
     public void delete_proyecto(int id) {
-        proyectoRepository.deleteById(id);
+        if (proyectoRepository.existsById(id)) {
+            proyectoRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Proyecto no encontrado con ID: " + id);
+        }
     }
 
     // Método para actualizar un proyecto:
     public Proyecto update_proyecto(Proyecto proyecto) {
         int id = proyecto.getId();
         if (proyectoRepository.existsById(id)) {
-            return proyectoRepository.save(proyecto);
+            try {
+                return proyectoRepository.save(proyecto);
+            } catch (DataIntegrityViolationException ex) {
+                throw new RuntimeException("Error al actualizar el proyecto: " + ex.getMostSpecificCause().getMessage());
+            }
         } else {
             throw new RuntimeException("Proyecto no encontrado con ID: " + id);
         }

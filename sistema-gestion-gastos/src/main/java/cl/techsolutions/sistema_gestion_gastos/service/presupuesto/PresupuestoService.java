@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import cl.techsolutions.sistema_gestion_gastos.model.presupuesto.Presupuesto;
@@ -29,7 +30,11 @@ public class PresupuestoService {
         if (presupuestoRepository.existsById(presupuesto.getId())) {
             throw new RuntimeException("Presupuesto ya existe con ID: " + presupuesto.getId());
         }
-        return presupuestoRepository.save(presupuesto);
+        try {
+            return presupuestoRepository.save(presupuesto);
+        } catch (DataIntegrityViolationException ex) {
+            throw new RuntimeException("Error al guardar el presupuesto: " + ex.getMostSpecificCause().getMessage());
+        }
     }
 
     // Método para eliminar un presupuesto por su ID:
@@ -47,6 +52,10 @@ public class PresupuestoService {
         if (!presupuestoRepository.existsById(id)) {
             throw new RuntimeException("Presupuesto no encontrado con ID: " + id);
         }
-        return presupuestoRepository.save(presupuesto);
+        try {
+            return presupuestoRepository.save(presupuesto);
+        } catch (DataIntegrityViolationException ex) {
+            throw new RuntimeException("Error al actualizar el presupuesto: " + ex.getMostSpecificCause().getMessage());
+        }
     }
 }

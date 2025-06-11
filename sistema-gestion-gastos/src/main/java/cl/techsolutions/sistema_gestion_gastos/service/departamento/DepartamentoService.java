@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import cl.techsolutions.sistema_gestion_gastos.model.departamento.Departamento;
@@ -31,10 +32,11 @@ public class DepartamentoService {
 
     //Método para guardar un departamento:
     public Departamento save_departamento(Departamento departamento) {
-        if(departamentoRepository.existsById(departamento.getId())) {
-            throw new RuntimeException("Departamento ya existe con ID: " + departamento.getId());
+        try {
+            return departamentoRepository.save(departamento);
+        } catch (DataIntegrityViolationException ex) {
+            throw new RuntimeException("Error al guardar el departamento: " + ex.getMostSpecificCause().getMessage());
         }
-        return departamentoRepository.save(departamento);
     }
 
     //Método para eliminar un departamento por su ID:

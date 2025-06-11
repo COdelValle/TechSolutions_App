@@ -47,11 +47,12 @@ public class Departamento {
     private int id;
 
     @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(min = 4,max = 50, message = "El nombre no puede exceder los 50 caracteres")
     @Column(nullable = false)
     private String nombre;
 
     @NotBlank(message = "La descripción no puede estar vacía")
-    @Size(max = 255, message = "La descripción no puede exceder los 255 caracteres")
+    @Size(min = 10,max = 255, message = "La descripción no puede exceder los 255 caracteres")
     @Column(nullable = false)
     private String descripcion;
 
