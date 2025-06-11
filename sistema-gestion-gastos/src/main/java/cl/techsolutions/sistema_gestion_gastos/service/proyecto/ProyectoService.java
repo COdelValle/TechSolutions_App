@@ -31,6 +31,9 @@ public class ProyectoService {
 
     // Método para agregar un proyecto:
     public Proyecto save_proyecto(Proyecto proyecto) {
+        if (proyectoRepository.existsById(proyecto.getId())) {
+            throw new RuntimeException("Proyecto ya existe con ID: " + proyecto.getId());
+        }
         return proyectoRepository.save(proyecto);
     }
 

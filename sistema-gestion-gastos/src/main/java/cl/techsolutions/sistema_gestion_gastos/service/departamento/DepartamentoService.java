@@ -31,11 +31,18 @@ public class DepartamentoService {
 
     //Método para guardar un departamento:
     public Departamento save_departamento(Departamento departamento) {
+        if(departamentoRepository.existsById(departamento.getId())) {
+            throw new RuntimeException("Departamento ya existe con ID: " + departamento.getId());
+        }
         return departamentoRepository.save(departamento);
     }
 
     //Método para eliminar un departamento por su ID:
     public void delete_departamento(int id) {
-        departamentoRepository.deleteById(id);
+        if (departamentoRepository.existsById(id)) {
+            departamentoRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Departamento no encontrado con ID: " + id);
+        }
     }
 }

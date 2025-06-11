@@ -26,11 +26,18 @@ public class TipoPresupuestoService {
 
     // Método para agregar un tipo de presupuesto:
     public TipoPresupuesto save_tipo_presupuesto(TipoPresupuesto tipoPresupuesto) {
+        if (tipoPresupuestoRepository.existsById(tipoPresupuesto.getId())) {
+            throw new RuntimeException("Tipo de presupuesto ya existe con ID: " + tipoPresupuesto.getId());
+        }
         return tipoPresupuestoRepository.save(tipoPresupuesto);
     }
 
     // Método para eliminar un tipo de presupuesto por su ID:
     public void delete_tipo_presupuesto(int id) {
-        tipoPresupuestoRepository.deleteById(id);
+        if (tipoPresupuestoRepository.existsById(id)) {
+            tipoPresupuestoRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Tipo de presupuesto no encontrado con ID: " + id);
+        }
     }
 }

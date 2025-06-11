@@ -26,21 +26,27 @@ public class PresupuestoService {
 
     // Método para agregar un presupuesto:
     public Presupuesto save_presupuesto(Presupuesto presupuesto) {
+        if (presupuestoRepository.existsById(presupuesto.getId())) {
+            throw new RuntimeException("Presupuesto ya existe con ID: " + presupuesto.getId());
+        }
         return presupuestoRepository.save(presupuesto);
     }
 
     // Método para eliminar un presupuesto por su ID:
     public void delete_presupuesto(int id) {
-        presupuestoRepository.deleteById(id);
+        if (presupuestoRepository.existsById(id)) {
+            presupuestoRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Presupuesto no encontrado con ID: " + id);
+        }
     }
 
     // Método para actualizar un presupuesto:
     public Presupuesto update_presupuesto(Presupuesto presupuesto) {
         int id = presupuesto.getId();
-        if (presupuestoRepository.existsById(id)) {
-            return presupuestoRepository.save(presupuesto);
-        } else {
+        if (!presupuestoRepository.existsById(id)) {
             throw new RuntimeException("Presupuesto no encontrado con ID: " + id);
         }
+        return presupuestoRepository.save(presupuesto);
     }
 }

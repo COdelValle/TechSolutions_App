@@ -31,11 +31,18 @@ public class EmpleadoService {
 
     //Método para guardar un empleado:
     public Empleado save_empleado(Empleado empleado) {
+        if (empleadoRepository.existsById(empleado.getId())) {
+            throw new RuntimeException("Empleado ya existe con ID: " + empleado.getId());
+        }
         return empleadoRepository.save(empleado);
     }
 
     //Método para eliminar un empleado por su ID:
     public void delete_empleado(int id) {
-        empleadoRepository.deleteById(id);
+        if (empleadoRepository.existsById(id)) {
+            empleadoRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Empleado no encontrado con ID: " + id);
+        }
     }
 }
