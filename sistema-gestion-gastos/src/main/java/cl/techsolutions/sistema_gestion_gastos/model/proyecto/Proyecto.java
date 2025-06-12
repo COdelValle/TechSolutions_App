@@ -3,9 +3,13 @@ package cl.techsolutions.sistema_gestion_gastos.model.proyecto;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import cl.techsolutions.sistema_gestion_gastos.model.departamento.Departamento;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 /**
@@ -43,6 +47,7 @@ public class Proyecto {
     private int id;
 
     @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(min = 2, message = "El nombre debe tener al menos 2 caracteres")
     @Column(nullable = false)
     private String nombre;
 
@@ -53,6 +58,7 @@ public class Proyecto {
 
     private Date fecha_fin;
 
+    @JsonBackReference("departamento-proyecto")
     @ManyToOne
     @JoinColumn(name = "departamento_id", nullable = false)
     private Departamento departamento;

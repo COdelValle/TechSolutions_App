@@ -1,5 +1,7 @@
 package cl.techsolutions.sistema_gestion_gastos.model.usuarios;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import cl.techsolutions.sistema_gestion_gastos.model.departamento.Departamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +32,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class GerenteDepartamento extends Usuario{
+    @JsonBackReference("departamento-gerente-departamento")
     @ManyToOne
     @JoinColumn(name = "departamento_id", nullable = false)
     private Departamento departamento;

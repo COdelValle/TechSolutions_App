@@ -2,6 +2,10 @@ package cl.techsolutions.sistema_gestion_gastos.model.departamento;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import cl.techsolutions.sistema_gestion_gastos.model.presupuesto.Presupuesto;
 import cl.techsolutions.sistema_gestion_gastos.model.proyecto.Proyecto;
 import cl.techsolutions.sistema_gestion_gastos.model.usuarios.Empleado;
@@ -47,23 +51,30 @@ public class Departamento {
     private int id;
 
     @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(min = 4,max = 50, message = "El nombre no puede exceder los 50 caracteres")
     @Column(nullable = false)
     private String nombre;
 
     @NotBlank(message = "La descripción no puede estar vacía")
-    @Size(max = 255, message = "La descripción no puede exceder los 255 caracteres")
+    @Size(min = 10,max = 255, message = "La descripción no puede exceder los 255 caracteres")
     @Column(nullable = false)
     private String descripcion;
 
+    //@JsonBackReference("departamento-empleado")
+    @JsonIgnore
     @OneToMany(mappedBy = "departamento")
     private List<Empleado> empleados;
 
+    @JsonManagedReference("departamento-gerente-departamento")
     @OneToMany(mappedBy = "departamento")
     private List<GerenteDepartamento> gerentes_departamento;
 
-    @OneToMany(mappedBy = "departamento")
-    private List<Presupuesto> presupuestos;
+    @JsonManagedReference("departamento-presupuesto")
+    @OneToOne
+    @JoinColumn(name = "presupuesto_id")
+    private Presupuesto presupuesto;
 
+    @JsonManagedReference("departamento-proyecto")
     @OneToMany(mappedBy = "departamento")
     private List<Proyecto> proyectos;
 }

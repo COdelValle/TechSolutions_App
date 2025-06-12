@@ -2,6 +2,8 @@ package cl.techsolutions.sistema_gestion_gastos.model.presupuesto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import cl.techsolutions.sistema_gestion_gastos.model.departamento.Departamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -43,6 +45,7 @@ public class Presupuesto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @JsonBackReference("tipo-presupuesto-presupuesto")
     @ManyToOne
     @JoinColumn(name = "tipo_presupuesto_id", nullable = false)
     private TipoPresupuesto tipo_presupuesto;
@@ -58,7 +61,7 @@ public class Presupuesto {
     @Column(nullable = false)
     private Date fecha_fin;
 
-    @ManyToOne
-    @JoinColumn(name = "departamento_id", nullable = false)
+    @JsonBackReference("departamento-presupuesto")
+    @OneToOne(mappedBy = "presupuesto")
     private Departamento departamento;
 }
