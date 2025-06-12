@@ -4,6 +4,9 @@ import cl.techsolutions.sistema_gestion_gastos.model.usuarios.GerenteDepartament
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
+import java.util.List;
+import cl.techsolutions.sistema_gestion_gastos.model.departamento.Departamento;
+
 
 /**
  * <b>GerenteDepartamentoRepository</b> es un repositorio de Spring Data JPA para la entidad {@link GerenteDepartamento}.
@@ -28,4 +31,8 @@ import java.util.Optional;
 public interface GerenteDepartamentoRepository extends JpaRepository<GerenteDepartamento, Integer> {
     // Método para buscar un Gerente de departamento por su correo electrónico
     Optional<GerenteDepartamento> findByEmail(String email);
+    // Método para verificar si un Gerente de departamento existe por su correo electrónico
+    boolean existsByEmail(String email);
+    // Método para buscar Gerente de departamento por el departamento
+    List<GerenteDepartamento> findByDepartamento(Departamento departamento);
 }

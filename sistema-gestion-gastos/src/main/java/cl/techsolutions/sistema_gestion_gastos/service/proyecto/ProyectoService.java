@@ -30,6 +30,10 @@ public class ProyectoService {
         return proyectoRepository.findByNombre(nombre);
     }
 
+    public List<Proyecto> get_proyectos_by_departamento(int id_departamento) {
+        return proyectoRepository.findByDepartamentoId(id_departamento);
+    }
+
     // Método para agregar un proyecto:
     public Proyecto save_proyecto(Proyecto proyecto) {
         if (proyectoRepository.existsById(proyecto.getId())) {

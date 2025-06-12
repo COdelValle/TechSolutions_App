@@ -2,6 +2,9 @@ package cl.techsolutions.sistema_gestion_gastos.model.proyecto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import cl.techsolutions.sistema_gestion_gastos.model.usuarios.Empleado;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -56,8 +59,10 @@ public class Gasto {
 
     @ManyToOne
     @JoinColumn(name = "proyecto_id", nullable = false)
+    @JsonIgnoreProperties({"gastos", "departamento"})
     private Proyecto proyecto;
 
+    @JsonBackReference("empleado-gasto")
     @ManyToOne
     @JoinColumn(name = "empleado_id", nullable = false)
     private Empleado registrador;

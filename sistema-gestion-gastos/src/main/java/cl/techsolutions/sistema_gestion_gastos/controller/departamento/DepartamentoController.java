@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("api/beta-1.0/departamentos")
+@RequestMapping("/api/beta-1.0/departamentos")
 public class DepartamentoController {
     @Autowired
     private DepartamentoService departamentoService;

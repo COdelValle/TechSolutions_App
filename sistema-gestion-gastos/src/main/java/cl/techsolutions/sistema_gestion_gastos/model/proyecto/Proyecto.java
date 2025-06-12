@@ -3,6 +3,9 @@ package cl.techsolutions.sistema_gestion_gastos.model.proyecto;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import cl.techsolutions.sistema_gestion_gastos.model.departamento.Departamento;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -55,6 +58,7 @@ public class Proyecto {
 
     private Date fecha_fin;
 
+    @JsonBackReference("departamento-proyecto")
     @ManyToOne
     @JoinColumn(name = "departamento_id", nullable = false)
     private Departamento departamento;

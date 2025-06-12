@@ -2,6 +2,7 @@ package cl.techsolutions.sistema_gestion_gastos.repository.proyecto;
 
 import cl.techsolutions.sistema_gestion_gastos.model.proyecto.Proyecto;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,4 +30,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ProyectoRepository extends JpaRepository<Proyecto, Integer> {
     //Método para encontrar un proyecto por su nombre
     Optional<Proyecto> findByNombre(String nombre);
+    List<Proyecto> findByDepartamentoId(int id_departamento);
 }

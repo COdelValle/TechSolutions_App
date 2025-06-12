@@ -2,6 +2,9 @@ package cl.techsolutions.sistema_gestion_gastos.model.usuarios;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import cl.techsolutions.sistema_gestion_gastos.model.departamento.Departamento;
 import cl.techsolutions.sistema_gestion_gastos.model.proyecto.Gasto;
 import jakarta.persistence.*;
@@ -30,10 +33,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Empleado extends Usuario {
+
     @ManyToOne
     @JoinColumn(name = "departamento_id", nullable = false)
     private Departamento departamento;
 
+    @JsonManagedReference("empleado-gasto")
     @OneToMany
     @JoinColumn(name = "empleado_id")
     private List<Gasto> gastos;

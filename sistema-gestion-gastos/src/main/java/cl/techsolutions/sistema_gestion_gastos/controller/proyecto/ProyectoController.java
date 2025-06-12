@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("api/beta-1.0/departamentos/id/{id_departamento}/proyectos")
+@RequestMapping("/api/beta-1.0/departamentos/id/{id_departamento}/proyectos")
 public class ProyectoController {
     @Autowired
     private DepartamentoService departamentoService;

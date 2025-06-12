@@ -5,6 +5,9 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import cl.techsolutions.sistema_gestion_gastos.model.usuarios.Empleado;
+import java.util.List;
+import cl.techsolutions.sistema_gestion_gastos.model.departamento.Departamento;
+
 
 /**
  * <b>EmpleadoRepository</b> es un repositorio de Spring Data JPA para la entidad {@link Empleado}.
@@ -31,4 +34,6 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, Integer> {
     Optional<Empleado> findByEmail(String email);
     // Método para verificar si un empleado existe por su correo electrónico
     boolean existsByEmail(String email);
+    // Método para buscar empleados por el departamento
+    List<Empleado> findByDepartamento(Departamento departamento);
 }
