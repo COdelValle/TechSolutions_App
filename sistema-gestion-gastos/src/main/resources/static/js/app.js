@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error("Error al cargar usuario:", error);
-            window.location.href = 'login.html';
+            window.location.href = 'login.html'
         });
     
     // Función para cargar datos del presupuesto
@@ -318,7 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function actualizar_estado_gasto(idGasto, nuevoEstado) {
-        const idDepartamento = localStorage.getItem("id_departamento");
+        const idDepartamento = localStorage.getItem("departamento");
 
         fetch(`/api/beta-1.0/departamentos/id/${idDepartamento}/gastos/${idGasto}/estado/${nuevoEstado}`, {
             method: 'PUT',
