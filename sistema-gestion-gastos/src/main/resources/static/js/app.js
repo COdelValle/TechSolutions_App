@@ -75,6 +75,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Insertar después del último párrafo en welcome-section
             const welcomeSection = document.getElementById('welcome-section');
             const lastParagraph = welcomeSection.querySelector('p:last-of-type');
+
+            const oldBudgetSummary = welcomeSection.querySelector('.budget-summary');
+            if (oldBudgetSummary) {
+                oldBudgetSummary.remove();
+            }
+
             lastParagraph.insertAdjacentHTML('afterend', welcomeBudgetHTML);
             
             // Actualizar sección de presupuestos
@@ -333,11 +339,13 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(msg => {
             alert(msg);
             loadExpenseHistory();
+            cargarPresupuesto(idDepartamento);
         })
         .catch(err => {
             console.error(err);
             alert("Error al actualizar el estado del gasto.");
         });
+        loadExpenseHistory();
         cargarPresupuesto(idDepartamento);
     }
 
