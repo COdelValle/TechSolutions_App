@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/beta-1.0/departamentos/id/{id_departamento}/gastos")
@@ -48,6 +50,13 @@ public class GastoController {
 
         return todosLosGastos;
     }
+
+    //Método para obtener un gasto
+    @GetMapping("/{id_gasto}")
+    public Gasto obtener_gasto(@PathVariable int id_gasto) {
+        return gastoService.get_gasto_by_id(id_gasto);
+    }
+    
 
     // Método para agregar un nuevo gasto a un proyecto
     @PostMapping
