@@ -2,6 +2,8 @@ package cl.techsolutions.sistema_gestion_gastos.service.usuario;
 
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,11 @@ public class GerenteDepartamentoService {
     //Método para obtener todos los Gerentes:
     public List<GerenteDepartamento> get_gerentes() {
         return gerenteDepartamentoRepository.findAll();
+    }
+
+    //Método para obtener un empleado por su ID:
+    public Optional<GerenteDepartamento> get_empleado_by_id(int id) {
+        return gerenteDepartamentoRepository.findById(id);
     }
 
     //Método para obtener los gerentes segun departamento

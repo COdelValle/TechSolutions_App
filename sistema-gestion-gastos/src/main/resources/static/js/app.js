@@ -10,16 +10,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Obtener información del usuario desde localStorage
     const email = localStorage.getItem("emailUsuario");
+
+    console.log(rol);
     
     fetch(`${API_USUARIO_URL}/email/${email}`)
         .then(response => response.json())
         .then(usuario => {
             if (!usuario) {
-                window.location.href = 'login.html';
-                return;
+                //window.location.href = 'login.html';
+                //return;
             }
             
             usuario_activo = usuario; // Almacenar el usuario globalmente
+            console.log(usuario)
             
             // Mostrar información del usuario
             document.getElementById('current-user').textContent = usuario.email;
@@ -34,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error("Error al cargar usuario:", error);
-            window.location.href = 'login.html'
+            //window.location.href = 'login.html'
         });
     
     // Función para cargar datos del presupuesto
@@ -164,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar logout
     document.getElementById('logout-btn').addEventListener('click', function() {
         localStorage.removeItem('emailUsuario');
-        localStorage.removeItem('departamento');
+        localStorage.removeItem('id_departamento');
         window.location.href = 'login.html?logout=true';
     });
     

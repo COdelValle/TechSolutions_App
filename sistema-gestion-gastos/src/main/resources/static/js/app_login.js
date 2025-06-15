@@ -31,18 +31,21 @@ document.addEventListener('DOMContentLoaded', function() {
             email: email,
             contraseña: contraseña
         })
-    })  .then(response =>{
+    })  .then(response => {
             if (!response.ok) throw new Error("Respuesta no OK");
-            return response.json();})
+            return response.json();
+        })
         .then(data => {
-            if(data.result === "OK"){
-                localStorage.setItem("emailUsuario",data.email);
+            console.log("DATA RECIBIDA:", data);
+            if(data && data.id && data.email){
+                localStorage.setItem("usuario", JSON.stringify(data));
                 window.location.href = "/index.html";
             }else if (data.error){
                 showError("No se pudo iniciar sesion: " + data.error);
                 document.getElementById("inp_email").value = "";
                 document.getElementById("inp_contrasenna").value = "";
             }else{ 
+                console.log("DATA RECIBIDA:", data);
                 showError("Correo o contraseña incorrectos.");
                 document.getElementById("inp_email").value = "";
                 document.getElementById("inp_contrasenna").value = "";
