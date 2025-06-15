@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             `;
-            
+            return data.presupuestoTotal - data.presupuestoUtilizado;
         } catch (error) {
             console.error("Error al cargar presupuesto:", error);
             alert("Error al cargar presupuesto");
@@ -163,6 +163,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 cargarPresupuesto(localStorage.getItem("departamento"));
             }else if(sectionId == 'expense-history'){
                 loadExpenseHistory();
+            }else if(sectionId == 'request-expense'){
+                document.getElementById('request-success').style.display = 'none';
             }
         });
     });
@@ -326,27 +328,56 @@ document.addEventListener('DOMContentLoaded', function() {
     function actualizar_estado_gasto(idGasto, nuevoEstado) {
         const idDepartamento = localStorage.getItem("departamento");
 
-        fetch(`/api/beta-1.0/departamentos/id/${idDepartamento}/gastos/${idGasto}/estado/${nuevoEstado}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("No se pudo actualizar el estado");
-            return response.text();
-        })
-        .then(msg => {
-            alert(msg);
-            loadExpenseHistory();
-            cargarPresupuesto(idDepartamento);
-        })
-        .catch(err => {
-            console.error(err);
-            alert("Error al actualizar el estado del gasto.");
+        cargarPresupuesto(idDepartamento)
+            .then(balance_actual => {
+                return fetch(`/api/beta-1.0/departamentos/id/${idDepartamento}/gastos/${idGasto}`)
+                    .then(response => response.json())
+                    .then(gasto => {
+                        const balance_final = balance_actual - gasto.monto;
+
+                        if (nuevoEstado === 'APROBADO') {
+                            if(balance_final <= 0){
+                                alert("No esta permitido aprobar este gasto, ya que, se pasaria del presupuesto.");
+                                return;
+                            }
+                            const confirmado = confirm(`¿Estás seguro de aprobar este gasto? Si lo apruebas, el balance final sería $${balance_final.toLocaleString('es-ES', { minimumFractionDigits: 2 })}.`);
+                            if (!confirmado) {
+                                alert("¡Aprobación cancelada!");
+                                return;
+                            }
+                        }else if(nuevoEstado === 'RECHAZADO'){
+                            const confirmado = confirm("¿Estás seguro de rechazar este gasto? Si lo rechaza ya no podra volver a aprobarlo.");
+                            if (!confirmado) {
+                                return;
+                            }
+                        }
+
+                        fetch(`/api/beta-1.0/departamentos/id/${idDepartamento}/gastos/${idGasto}/estado/${nuevoEstado}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                        })
+                        .then(response => {
+                            if (!response.ok) throw new Error("No se pudo actualizar el estado");
+                            return response.text();
+                        })
+                        .then(msg => {
+                            alert(msg);
+                            loadExpenseHistory();
+                            cargarPresupuesto(idDepartamento);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            alert("Error al actualizar el estado del gasto.");
+                        });
+                        loadExpenseHistory();
+                        cargarPresupuesto(idDepartamento);
+                });
+        })  .catch(error =>{
+            console.error("Error en la validación de aprobación:", error);
+            alert("Ocurrió un error al validar el gasto.");
         });
-        loadExpenseHistory();
-        cargarPresupuesto(idDepartamento);
     }
 
     function cargarSelect(proyectos) {
