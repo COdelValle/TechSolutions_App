@@ -1,28 +1,52 @@
-# TechSolutions_App
-Herramienta especializada en la gestión de recursos financieros y en la planificación de gastos en proyectos a largo y corto plazo.
+# 💼 TechSolutions_App
 
-## Demostración del Proyecto
+**TechSolutions_App** es una herramienta web especializada para la gestión de recursos financieros, diseñada para optimizar la planificación de gastos tanto operacionales como de proyectos, permitiendo mayor visibilidad, control y eficiencia en la toma de decisiones dentro de la empresa **TechSolutions S.A.**
 
-Puedes ver la demostración completa aquí:
+---
+
+## 🎯 Objetivos del Proyecto
+
+- Controlar presupuestos departamentales en tiempo real.
+- Gestionar solicitudes de gastos y modificaciones.
+- Emitir reportes financieros por departamento o empresa.
+- Garantizar seguridad mediante control de accesos por roles.
+
+---
+
+## 🎥 Demostración del Proyecto
+
+Haz clic en la imagen para ver la demostración completa de la aplicación:
 
 [![Ver Video](https://img.youtube.com/vi/0nfRbB7lcHk/0.jpg)](https://www.youtube.com/watch?v=0nfRbB7lcHk)
 
-## Tutoriales del Proyecto
+---
 
-Puedes ver el tutorial de levantamiento del proyecto aquí:
+## 📚 Tutoriales Técnicos
+
+Aquí puedes ver un video explicativo sobre cómo levantar el proyecto en entorno local:
 
 [![Ver Video](https://img.youtube.com/vi/bTTAdI_RgkE/0.jpg)](https://www.youtube.com/watch?v=bTTAdI_RgkE)
 
-### 📄 Datos de prueba
+---
 
-Para facilitar el testeo del sistema, se incluye un archivo con solicitudes tipo **POSTMAN** que permiten crear datos iniciales en el backend.
+## 🧪 Datos de prueba
+
+Para facilitar el testeo del sistema, se incluye un archivo con solicitudes tipo **POSTMAN**, útil para crear datos iniciales directamente en el backend.
 
 📂 **Ruta:** `docs/datos-prueba.txt`  
-📎 **Contenido:**  
+📄 **Contenido del archivo:**  
 - Creación de departamentos, tipos de presupuesto y presupuestos.  
-- Registro de proyectos y empleados asociados.  
-- Incluye cuerpos de solicitudes (`body`) en formato `JSON`.  
-- URLs adaptadas a endpoints del backend con formato REST.  
+- Registro de proyectos, empleados y asignaciones.  
+- Formato `JSON` para cuerpos de solicitudes POST.  
+- URLs adaptadas al backend RESTful.
 
-🔗 Puedes acceder al archivo directamente aquí:  
-[📥 Ver archivo de datos de prueba](./docs/datos-prueba.txt)
+🔗 [📥 Descargar archivo de datos de prueba](./docs/datos-prueba.txt)
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- **Backend:** Java + Spring Boot  
+- **Base de datos:** MySQL  
+- **Arquitectura:** MVC en capas  
+- **Frontend (próxima versión):** HTML/CSS + Vue.js (en planificación)  
