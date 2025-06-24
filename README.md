@@ -48,5 +48,4 @@ Para facilitar el testeo del sistema, se incluye un archivo con solicitudes tipo
 
 - **Backend:** Java + Spring Boot  
 - **Base de datos:** MySQL  
-- **Arquitectura:** MVC en capas  
-- **Frontend (próxima versión):** HTML/CSS + Vue.js (en planificación)  
+- **Arquitectura:** MVC en capas 
