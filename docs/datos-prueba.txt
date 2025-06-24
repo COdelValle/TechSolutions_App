@@ -1,0 +1,126 @@
+Datos de prueba - Postman
+-------------------------
+NOTAS:
+Los body's tienen que ser raw de tipo JSON.
+Se adjunta tutorial para solicitud correspondiente.
+-------------------------
+1. Crear departamento:
+- Método: POST
+- URL: http://localhost:8080/api/beta-1.0/departamentos
+- Body:
+{
+    "nombre": "Finanzas",
+    "descripcion": "Departamento de finanzas de prueba"
+}
+
+- Información esperada:
+{
+    "id": 1,
+    "nombre": "Finanzas",
+    "descripcion": "Departamento de finanzas de prueba",
+    "gerentes_departamento": null,
+    "presupuesto": null,
+    "proyectos": null
+}
+
+2. Crear tipo de presupuesto:
+- Método: POST
+- URL: http://localhost:8080/api/beta-1.0/tipo-presupuesto
+- Body:
+{
+    "nombre":"Anual"
+}
+
+- Información esperada:
+{
+    "id": 1,
+    "nombre": "Anual",
+    "presupuestos": null
+}
+
+3. Crear presupuesto:
+- Método: POST
+- URL: http://localhost:8080/api/beta-1.0/departamentos/id/1/presupuestos
+- Body:
+{
+    "tipo_presupuesto": {
+        "id": 1
+    },
+    "monto_total": 150000,
+    "fecha_inicio": "2025-06-01",
+    "fecha_fin": "2025-07-01"
+}
+
+- Información esperada:
+{
+    "id": 1,
+    "monto_total": 150000.0,
+    "monto_utilizado": 0.0,
+    "fecha_inicio": "2025-06-01T00:00:00.000+00:00",
+    "fecha_fin": "2025-07-01T00:00:00.000+00:00"
+}
+
+4. Crear proyecto:
+- Método: POST
+- URL: http://localhost:8080/api/beta-1.0/departamentos/id/1/proyectos
+- Body:
+{
+    "nombre": "Proyecto de prueba",
+    "fecha_inicio": "2025-06-12"
+}
+
+- Información esperada:
+{
+    "id": 1,
+    "nombre": "Proyecto de prueba",
+    "descripcion": null,
+    "fecha_inicio": "2025-06-12T00:00:00.000+00:00",
+    "fecha_fin": null,
+    "gastos": null
+}
+
+5. Crear empleado:
+- Método: POST
+- URL: http://localhost:8080/api/beta-1.0/usuarios/empleados/registrar
+- Body:
+{
+    "nombre": "Jorge",
+    "apellido": "Gonzalez",
+    "departamento": {
+        "id": 1
+    }
+}
+
+- Información esperada:
+{
+    "id": 1,
+    "nombre": "Jorge",
+    "apellido": "Gonzalez",
+    "email": "jo.gonzalez22@tsempfi.com",
+    "contraseña": "tvS0AXeZ5r",
+    "notificaciones": null,
+    "departamento": {
+        "id": 1,
+        "nombre": "Finanzas",
+        "descripcion": "Departamento de finanzas de prueba",
+        "gerentes_departamento": [],
+        "presupuesto": {
+            "id": 1,
+            "monto_total": 150000.0,
+            "monto_utilizado": 0.0,
+            "fecha_inicio": "2025-06-01T00:00:00.000+00:00",
+            "fecha_fin": "2025-07-01T00:00:00.000+00:00"
+        },
+        "proyectos": [
+            {
+                "id": 1,
+                "nombre": "Proyecto de prueba",
+                "descripcion": null,
+                "fecha_inicio": "2025-06-12T00:00:00.000+00:00",
+                "fecha_fin": null,
+                "gastos": []
+            }
+        ]
+    },
+    "gastos": null
+}
